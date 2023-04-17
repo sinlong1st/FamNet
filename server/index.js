@@ -10,7 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import register from "./controllers/auth.js";
 import authRoutes from "./routes/auth.js";
-
+import usersRoutes from "./routes/users.js";
 /* Configurations */
 // const url = new URL(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
@@ -42,6 +42,8 @@ app.post("/auth/register", upload.single("picture"), register);
 
 /* Routes */
 app.use("/auth", authRoutes);
+app.use("/users", usersRoutes);
+
 /* Mongoose setup */
 const PORT = process.env.PORT || 6001; //6001 is the backup
 mongoose
