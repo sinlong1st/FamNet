@@ -8,9 +8,11 @@ import multer from "multer";
 import helmet from "helmet";
 import path from "path";
 import { fileURLToPath } from "url";
+import register from "./controllers/auth.js";
 
 /* Configurations */
-const __filename = fileURLToPath(import.meta, url);
+// const url = new URL(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
@@ -23,7 +25,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/assets", express.static(path.join(__dirname, "public/assests")));
 
-/* File Storage */ // => To save your files
+/* File Storage */ // ==> To save your files
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/assets");
@@ -33,3 +35,22 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
+
+/* ROUTES with files */
+app.post("/auth/register", upload.single("picture"), register);
+
+/* Mongoose setup */
+const PORT = process.env.PORT || 6001; //6001 is the backup
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server port: ${PORT} is running`);
+    });
+  })
+  .catch((err) => {
+    console.log(`Error: ${err} `);
+  });
