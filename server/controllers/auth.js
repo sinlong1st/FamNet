@@ -39,3 +39,22 @@ export const register = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+/* Logging In */
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user)
+      return res.status(400).json({ msg: "User email can't be found" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(400).json({ msg: "The password is not correct" });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    delete user.password; //Delete, doesnt need to send it back to the frontend, more secured
+    res.status(200).json({ token, user });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

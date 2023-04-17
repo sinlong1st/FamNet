@@ -9,6 +9,7 @@ import helmet from "helmet";
 import path from "path";
 import { fileURLToPath } from "url";
 import register from "./controllers/auth.js";
+import authRoutes from "./routes/auth.js";
 
 /* Configurations */
 // const url = new URL(import.meta.url);
@@ -39,6 +40,8 @@ const upload = multer({ storage });
 /* ROUTES with files */
 app.post("/auth/register", upload.single("picture"), register);
 
+/* Routes */
+app.use("/auth", authRoutes);
 /* Mongoose setup */
 const PORT = process.env.PORT || 6001; //6001 is the backup
 mongoose
