@@ -1,14 +1,10 @@
 import express from "express";
-import {
-  getUser,
-  getUserFriends,
-  addRemoveFriend,
-} from "../controllers/users.js";
+import { createPost, deletePost, showPost } from "../controllers/posts.js";
 import { verifyToken } from "../middlewares/auth.js";
 
 const router = express.Router();
 /* Get(read) */
-router.get("/:id", verifyToken, getUser);
+router.get("/:id", verifyToken, getPost);
 router.get("/:id/friends", verifyToken, getUserFriends);
 
 // Update
