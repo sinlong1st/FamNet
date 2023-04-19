@@ -7,6 +7,9 @@ FamNet introduces to you a Closed-network that you and your friends, your family
 # Features:
 + Log in/out, register
 + Newsfeed
++ Profile Page
++ Home Page
++ Friends list
 
 
 # Frontend modules and packages:
