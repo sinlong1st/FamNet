@@ -13,7 +13,7 @@ FamNet introduces to you a Closed-network that you and your friends, your family
 + react-redux @reduxjs/toolkit =>state management
 + redux-persist: store states into local storage if needed (keep the in-progress info)
 + react-dropzone: component handles file upload and file handling from frontend to backend
-+ formik: form handling
++ formik: forms handling
 + yup: for validation
 + react-router-dom: for handling routes and pages
 + @mui/material @emotion/react @emotion/styled @mui/icons-material: for MaterialUI
